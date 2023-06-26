@@ -1,6 +1,6 @@
 # Docker's Tutorial for containers.  
 
-**This README just documents the commands that were ran, and *hopefully* helps me remember them.**  
+**This README just documents the commands that were ran from the tutorial by Docker, and *hopefully* helps me remember them.**  
 
 - `docker run -d -p 80:80 docker/getting=started`  
 	- *`-d`: detached*  
@@ -38,4 +38,19 @@ After creating the **Dockerfile** in the same directory as **package.json**.
 
 	- `docker rm -f <CONTAINER_TO_STOP_ID>` *in one line.*  
 
+	** *OR* **  
+
+	- You can also remove it from Docker Desktop.  
+
 - **Then restart updated container as in the [Starting a Container](#starting-a-container) section.**  
+
+## Pushing our Image  
+- Log into Docker Hub (website) and create a repository.  
+- `docker login -u <USER_NAME>` or *Sign-in* from Docker Desktop.  
+- `docker tag getting-started <USER_NAME>/getting-started`  
+- `docker push <USER_NAME>/getting-started`  
+
+### Aside. Playing with newly created image.  
+- Go to the Lab Environment from Play with Docker. [Link](https://labs.play-with-docker.com/)  
+- Sign in if needed.  
+- `docker run -dp 3000:3000 <USER_NAME>/getting-started`  
