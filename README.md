@@ -34,11 +34,11 @@ After creating the **Dockerfile** in the same directory as **package.json**.
 	*once container stops, remove it by:*  
 	- `docker rm <CONTAINER_TO_STOP_ID>`
 
-	** *OR* **  
+	***OR***  
 
 	- `docker rm -f <CONTAINER_TO_STOP_ID>` *in one line.*  
 
-	** *OR* **  
+	***OR***  
 
 	- You can also remove it from Docker Desktop.  
 
@@ -50,7 +50,7 @@ After creating the **Dockerfile** in the same directory as **package.json**.
 - `docker tag getting-started <USER_NAME>/getting-started`  
 - `docker push <USER_NAME>/getting-started`  
 
-### Aside. Playing with newly created image.  
-- Go to the Lab Environment from Play with Docker. [Link](https://labs.play-with-docker.com/)  
-- Sign in if needed.  
+#### Aside. Playing with newly created image.  
+- Go to the [Lab Environment](https://labs.play-with-docker.com/) from Play with Docker.
+- Sign in if needed.
 - `docker run -dp 3000:3000 <USER_NAME>/getting-started`  
