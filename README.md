@@ -15,4 +15,8 @@ After creating the **Dockerfile** in the same directory as **package.json**.
 	- *`-t` give image a human readable name (in this case, getting-started).*  
 	- *`.` specificies location of Dockerfile.*
 
+## Starting a Container  
 
+- `docker run -dp 3000:3000 getting-started`  
+	- *same/similar as first command.*
+	- *`getting-started` is the name tag given with `-t`.*
