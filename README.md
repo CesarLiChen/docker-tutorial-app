@@ -19,7 +19,10 @@ After creating the **Dockerfile** in the same directory as **package.json**.
 
 - `docker run -dp 3000:3000 getting-started`  
 	- *same/similar as first command.*
-	- *`getting-started` is the name tag given with `-t`.*
+	- *`getting-started` is the name tag given with `-t`.*  
+
+**subsequent starting of containers can be done with the following command**  
+- `docker start <CONTAINER_ID_OR_NAME>` *the ID can be partial as long as it does not conflict with another container*
 
 ## Updating App within Container
 
