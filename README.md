@@ -57,3 +57,11 @@ After creating the **Dockerfile** in the same directory as **package.json**.
 - Go to the [Lab Environment](https://labs.play-with-docker.com/) from Play with Docker.
 - Sign in if needed.
 - `docker run -dp 3000:3000 <USER_NAME>/getting-started`  
+
+## Container's Filesystem  
+- `docker run -d ubuntu bash -c "shuf -i 1-10000 -n 1 -o /data.txt && tail -f /dev/null"` *starts an Ubuntu container that creates a /data.txt file containing one random number between 1-10000*  
+- Run `cat data.txt` either via: 
+	- Docker Desktop: Three dots beside container -> Open in Terminal.  
+	OR  
+	- `docker exec <CONTAINER_ID> cat data.txt`  
+
