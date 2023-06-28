@@ -65,3 +65,19 @@ After creating the **Dockerfile** in the same directory as **package.json**.
 	OR  
 	- `docker exec <CONTAINER_ID> cat data.txt`  
 
+## Volumes  
+- Provides ability to connect specific filesystem paths of container back to host machine.  
+- Two main volume types: **Named Volumes** and **Bind Mounts**  
+	- **Named Volumes**: Buckets of data.
+
+### Persisting data (Named Volumes)
+- On this app, data is stored at `/etc/todos/todo.db` in an SQLite DB. They are stored in a single file.  
+- `docker volume create todo-db`  *same **todo-db** as below*
+- `docker run -dp 3000:3000 -v todo-db:/etc/todos getting-started`  
+
+	- to check:  
+		- Adds some task.  
+		- Remove the container, and rerun **second command** above.  
+		- Task should be persisting between containers.
+
+### Bind Mounts
