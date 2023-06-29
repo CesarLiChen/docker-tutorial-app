@@ -76,8 +76,19 @@ After creating the **Dockerfile** in the same directory as **package.json**.
 - `docker run -dp 3000:3000 -v todo-db:/etc/todos getting-started`  
 
 	- to check:  
-		- Adds some task.  
+		- Add some task(s).  
 		- Remove the container, and rerun **second command** above.  
 		- Task should be persisting between containers.
 
-### Bind Mounts
+### Bind Mounts  
+- We have control of exact mountpoint on host.  
+	- Can be used to persist data.  
+	- But often used to provide additional data into containers.  
+
+- In the root of the app's directory:  
+ - ```
+ docker run -dp 3000:3000 \
+	-w /app -v "$(pwd):/app" \
+	node:18-alpine \
+	sh -c "yarn install && yarn run dev"
+	```
