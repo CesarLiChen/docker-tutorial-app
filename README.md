@@ -86,9 +86,16 @@ After creating the **Dockerfile** in the same directory as **package.json**.
 	- But often used to provide additional data into containers.  
 
 - In the root of the app's directory:  
-	- ```
-	docker run -dp 3000:3000 \
-		-w /app -v "$(pwd):/app" \
-		node:18-alpine \
-		sh -c "yarn install && yarn run dev"
-	```
+```	
+docker run -dp 3000:3000 \
+	-w /app -v "$(pwd):/app" \
+	node:18-alpine \
+	sh -c "yarn install && yarn run dev"
+```
+- Explanation: 
+	- `w /app` *sets container's present working directory.*
+	- `-v "$(pwd):/app` *(pwd) is host's working dir, which is the app. Binds (pwd) to container's /app dir.*  
+	- `node:18-alpine` *image to use*  
+	- `sh -c "yarn install && yarn run dev"` *this command runs on /app. Runs a shell (since alpine doesn't have a bash) and runs commands to install dependencies as well as run the **dev** script*  
+	- `yarn run dev` runs `nodemon src/index.js` as seen in **package.json**.
+	- Logs from above can be seen with `docker logs -f <CONTAINER_ID>`.
