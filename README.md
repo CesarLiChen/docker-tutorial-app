@@ -99,3 +99,29 @@ docker run -dp 3000:3000 \
 	- `sh -c "yarn install && yarn run dev"` *this command runs on /app. Runs a shell (since alpine doesn't have a bash) and runs commands to install dependencies as well as run the **dev** script*  
 	- `yarn run dev` runs `nodemon src/index.js` as seen in **package.json**.
 	- Logs from above can be seen with `docker logs -f <CONTAINER_ID>`.
+
+## Multi Container Applications  
+
+- **"Each container should do one thing and do it well."**
+- **Networking** will be used for inter container communication.
+
+### Network creating (2 ways)
+1. Assign at start.
+2. Connect to existing container.
+
+#### Doing 1. Creating t he network first then attach the container.
+- `docker network create todo-app` *creates network*
+- Then: 
+```
+docker run -d \
+	--network todo-app --network-alias mysql \
+	-v todo-mysql-data:/var/lib/mysql \
+	-e MYSQL_ROOT_PASSWORD=secret \
+	-e MYSQL_DATABASE=todos \
+	mysql:8.0
+```
+- Explanation:
+	- Starts a MySQL container, and attaches it to created network.
+	- `-v todo-mysql-data:/var/lib/mysql` *makes a `todo-mysql-data` volume and mounts it at `/var/lib/mysql` (place where MySQL stores data).*
+	- Also creates some environment variables `-e`.
+	- `docker volume create` not needed since Docker recognizes need and creates one automatically.
