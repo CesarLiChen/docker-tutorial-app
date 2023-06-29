@@ -86,7 +86,8 @@ After creating the **Dockerfile** in the same directory as **package.json**.
 	- But often used to provide additional data into containers.  
 
 - In the root of the app's directory:  
- - ```
+	- 
+	```
 	docker run -dp 3000:3000 \
 		-w /app -v "$(pwd):/app" \
 		node:18-alpine \
