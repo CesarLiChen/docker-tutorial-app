@@ -109,7 +109,9 @@ docker run -dp 3000:3000 \
 1. Assign at start.
 2. Connect to existing container.
 
-#### Doing 1. Creating t he network first then attach the container.
+#### Doing 1. Creating the network first then attach the container.
+
+##### Network and MySQL container creation.
 - `docker network create todo-app` *creates network*
 - Then: 
 ```
@@ -125,3 +127,37 @@ docker run -d \
 	- `-v todo-mysql-data:/var/lib/mysql` *makes a `todo-mysql-data` volume and mounts it at `/var/lib/mysql` (place where MySQL stores data).*
 	- Also creates some environment variables `-e`.
 	- `docker volume create` not needed since Docker recognizes need and creates one automatically.
+
+- `docker exec -it <CONTAINER_ID> mysql -p` *the `-p` flag, propmts for password.*
+- After entering password, you'll be inside of mysql's terminal.
+- `SHOW DATABASES;` *will confirm our database is working.*
+- `exit` *to exit mysql terminal.*
+
+##### Connecting to MySQL's container.
+- `docker run -it --network todo-app nicolaka/netshoot` *use another container `nicolaka/netshoot` that contains a lot of tools for networking issues.*
+- Once inside of netshoot: use `dig mysql` to look up the IP address.
+	- `mysql` is from the `--network-alias` flag when we [started the MySQL database](#network-and-mysql-container-creation).
+- Note/remember IP, then `exit` netshoot when ready.
+
+## Finally running App container with MySQL container.
+- Environment variables are ok in development but NOT OK in production.
+- Command below specificies environment variables, also connects container to the network.
+```
+docker run -dp 3000:3000 \
+	-w /app -v "$(pwd):/app" \
+	--network todo-app \
+	-e MYSQL_HOST=mysql \
+	-e MYSQL_USER=root \
+	-e MYSQL_PASSWORD=secret \
+	-e MYSQL_DB=todos \
+	node:18-alpine \
+	sh -c "yarn install && yarn run dev"
+```
+- Explanations:
+	- connects to `todo-app` network.
+	- `MYSQL_HOST` *hostname for the running MySQL server. `mysql` alias resolves to the runnign MySQL server.*
+	- `MYSQL_DB` *the database to use once connected.*
+	- Rest is hopefully intuitive, or has been explained before.
+
+- `docker exec -it <CONTAINER_ID> mysql -p todos` *runs MySQL terminal.*
+- Once inside `select * from todo_items;`
