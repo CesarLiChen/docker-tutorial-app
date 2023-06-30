@@ -162,3 +162,6 @@ docker run -dp 3000:3000 \
 - `docker exec -it <CONTAINER_ID> mysql -p todos` *runs MySQL terminal.*
 - Once inside `select * from todo_items;`
 - `docker stop $(docker ps -aq)` Stops all containers.
+
+## Using Docker Compose
+- Instead of all the commands above, we can specify them in a `.yml` file.
