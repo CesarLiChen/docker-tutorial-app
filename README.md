@@ -164,4 +164,9 @@ docker run -dp 3000:3000 \
 - `docker stop $(docker ps -aq)` Stops all containers.
 
 ## Using Docker Compose
-- Instead of all the commands above, we can specify them in a `.yml` file.
+- Instead of all the commands above, we can specify them in a file named `docker-compose.yml`.
+- The file should be in the same directory as the `Dockerfile` and `package.json`.
+- Make sure no other copies of the app or db are running. Then use `docker compose up -d` command. `-d` is to run it in the background.
+- To see live output, `docker compose logs -f`. The `-f` parameter is so it follows the log.
+	- `docker compose logs -f <SERVICE>` to see a specific service's logs. e.g. `docker compose logs -f app`.
+- `docker compose down` or Delete icon on Docker Desktop when ready tear it down.
