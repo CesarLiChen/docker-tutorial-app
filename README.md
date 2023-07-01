@@ -170,3 +170,27 @@ docker run -dp 3000:3000 \
 - To see live output, `docker compose logs -f`. The `-f` parameter is so it follows the log.
 	- `docker compose logs -f <SERVICE>` to see a specific service's logs. e.g. `docker compose logs -f app`.
 - `docker compose down` or Delete icon on Docker Desktop when ready tear it down.
+
+## Layer Caching (image building best practice)
+- Restructure `Dockerfile`:
+	From
+```
+FROM node:18-alpine
+WORKDIR /app
+COPY . .
+RUN yarn install --production
+CMD ["node", "src/index.js"]
+```
+	To
+```
+FROM node:18-alpine
+WORKDIR /app
+COPY package.json yarn.lock ./	<---ADD
+RUN yarn install --production
+COPY . .
+CMD ["node", "src/index.js"]
+```
+- Create a `.dockerignore` where the Dockerfile resides, so that the `COPY` operation avoids the `node_modules` folder. i.e. Create a `.dockerignore` text file and add the `node_modules` line.
+- `docker build -t getting-started .` to build the image.
+- Make some changes to code.
+- Run `docker build -t getting-started .` again, and you'll notice it's way faster.
